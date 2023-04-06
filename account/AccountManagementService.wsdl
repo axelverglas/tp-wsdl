@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AccountManagementService"
+             targetNamespace="http://example.com/account"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://example.com/account">
+
+  <types>
+    <xsd:schema targetNamespace="http://example.com/account">
+      <xsd:element name="CreateAccountRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="email" type="xsd:string"/>
+            <xsd:element name="password" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateAccountResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="success" type="xsd:boolean"/>
+            <xsd:element name="message" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="CreateAccountInput">
+    <part name="parameters" element="tns:CreateAccountRequest"/>
+  </message>
+
+  <message name="CreateAccountOutput">
+    <part name="parameters" element="tns:CreateAccountResponse"/>
+  </message>
+
+  <portType name="AccountManagementPortType">
+    <operation name="CreateAccount">
+      <input message="tns:CreateAccountInput"/>
+      <output message="tns:CreateAccountOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="AccountManagementBinding" type="tns:AccountManagementPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="CreateAccount">
+      <soap:operation soapAction="http://example.com/account/CreateAccount"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="AccountManagementService">
+    <port name="AccountManagementPort" binding="tns:AccountManagementBinding">
+      <soap:address location="http://example.com/account"/>
+    </port>
+  </service>
+</definitions>
