@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="CartManagementService"
+             targetNamespace="http://example.com/cartmanagement"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://example.com/cartmanagement">
+
+  <types>
+    <xsd:schema targetNamespace="http://example.com/cartmanagement">
+      <xsd:element name="AddProductToCartRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="cartId" type="xsd:string"/>
+            <xsd:element name="productId" type="xsd:string"/>
+            <xsd:element name="quantity" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddProductToCartResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="success" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="AddProductToCartRequestMessage">
+    <part name="parameters" element="tns:AddProductToCartRequest"/>
+  </message>
+  <message name="AddProductToCartResponseMessage">
+    <part name="result" element="tns:AddProductToCartResponse"/>
+  </message>
+
+  <portType name="CartManagementPortType">
+    <operation name="AddProductToCart">
+      <input message="tns:AddProductToCartRequestMessage"/>
+      <output message="tns:AddProductToCartResponseMessage"/>
+    </operation>
+  </portType>
+
+  <binding name="CartManagementBinding" type="tns:CartManagementPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="AddProductToCart">
+      <soap:operation soapAction="http://example.com/cartmanagement/AddProductToCart"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="CartManagementService">
+    <port name="CartManagementPort" binding="tns:CartManagementBinding">
+      <soap:address location="http://example.com/cartmanagement"/>
+    </port>
+  </service>
+
+</definitions>
