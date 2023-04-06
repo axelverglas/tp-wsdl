@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="PurchaseManagementService"
+             targetNamespace="http://example.com/purchase"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://example.com/purchase">
+
+  <types>
+    <xsd:schema targetNamespace="http://example.com/purchase">
+      <xsd:element name="ProcessPurchaseRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="cartId" type="xsd:string"/>
+            <xsd:element name="stripeToken" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ProcessPurchaseResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="success" type="xsd:boolean"/>
+            <xsd:element name="message" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="ProcessPurchaseInput">
+    <part name="parameters" element="tns:ProcessPurchaseRequest"/>
+  </message>
+
+  <message name="ProcessPurchaseOutput">
+    <part name="parameters" element="tns:ProcessPurchaseResponse"/>
+  </message>
+
+  <portType name="PurchaseManagementPortType">
+    <operation name="ProcessPurchase">
+      <input message="tns:ProcessPurchaseInput"/>
+      <output message="tns:ProcessPurchaseOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="PurchaseManagementBinding" type="tns:PurchaseManagementPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="ProcessPurchase">
+      <soap:operation soapAction="http://example.com/purchase/ProcessPurchase"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="PurchaseManagementService">
+    <port name="PurchaseManagementPort" binding="tns:PurchaseManagementBinding">
+      <soap:address location="http://example.com/purchase"/>
+    </port>
+  </service>
+</definitions>
