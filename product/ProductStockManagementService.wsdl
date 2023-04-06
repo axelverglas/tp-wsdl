@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="ProductStockManagementService"
+             targetNamespace="http://example.com/productstockmanagement"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://example.com/productstockmanagement">
+
+  <types>
+    <xsd:schema targetNamespace="http://example.com/productstockmanagement">
+      <xsd:element name="GetProductStockRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="productId" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetProductStockResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="stock" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="GetProductStockRequestMessage">
+    <part name="parameters" element="tns:GetProductStockRequest"/>
+  </message>
+  <message name="GetProductStockResponseMessage">
+    <part name="result" element="tns:GetProductStockResponse"/>
+  </message>
+
+  <portType name="ProductStockManagementPortType">
+    <operation name="GetProductStock">
+      <input message="tns:GetProductStockRequestMessage"/>
+      <output message="tns:GetProductStockResponseMessage"/>
+    </operation>
+  </portType>
+
+  <binding name="ProductStockManagementBinding" type="tns:ProductStockManagementPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetProductStock">
+      <soap:operation soapAction="http://example.com/productstockmanagement/GetProductStock"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="ProductStockManagementService">
+    <port name="ProductStockManagementPort" binding="tns:ProductStockManagementBinding">
+      <soap:address location="http://example.com/productstockmanagement"/>
+    </port>
+  </service>
+
+</definitions>
