@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="Nom_du_service" 
+             targetNamespace="http://example.com/service" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://example.com/service">
+
+  <types>
+    <xsd:schema targetNamespace="http://example.com/service">
+      <xsd:element name="Nom_du_type">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Parametre_1" type="xsd:string" />
+            <xsd:element name="Parametre_2" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="Nom_du_message_request">
+    <part name="parameters" element="tns:Nom_du_type"/>
+  </message>
+
+  <message name="Nom_du_message_response">
+    <part name="result" element="tns:Nom_du_type"/>
+  </message>
+
+  <portType name="Nom_du_portType">
+    <operation name="Nom_de_loperation">
+      <input message="tns:Nom_du_message_request" />
+      <output message="tns:Nom_du_message_response" />
+    </operation>
+  </portType>
+
+  <binding name="Nom_du_binding" type="tns:Nom_du_portType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Nom_de_loperation">
+      <soap:operation soapAction="http://example.com/service/Nom_de_loperation" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+
+  <service name="Nom_du_service">
+    <port name="Nom_du_port" binding="tns:Nom_du_binding">
+      <soap:address location="http://example.com/service/Nom_du_port" />
+    </port>
+  </service>
+  
+</definitions>
