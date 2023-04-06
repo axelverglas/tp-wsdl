@@ -1,6 +1,6 @@
 # Service de gestion du stock de produits
 
-Ce projet contient la définition WSDL pour un service de gestion du stock de produits. Le service permet de récupérer le stock d'un produit en fonction de son ID. Le document WSDL définit le service, les opérations, les types de données et les messages associés.
+Ce service permet de récupérer le stock d'un produit en fonction de son ID. Le document WSDL définit le service, les opérations, les types de données et les messages associés.
 
 ### Types de données
 
